@@ -371,9 +371,7 @@ impl NonFungibleToken {
         let approved_account_ids =
             if self.approvals_by_id.is_some() { Some(HashMap::new()) } else { None };
 
-        if let Some((id, storage_usage)) = initial_storage_usage {
-            refund_deposit_to_account(env::storage_usage() - storage_usage, id)
-        }
+        refund_deposit_to_account(env::storage_usage() - storage_usage, env::predecessor_account_id());
 
         // Return any extra attached deposit not used for storage
 
